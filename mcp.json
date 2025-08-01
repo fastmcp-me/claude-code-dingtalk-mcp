@@ -1,0 +1,12 @@
+{
+    "mcpServers": {
+      "dingtalk-notifications": {
+        "command": "dingtalk-mcp-server",
+        "description": "钉钉通知服务器 - Claude Code 自动通知",
+        "env": {
+          "DINGTALK_WEBHOOK": "${DINGTALK_WEBHOOK}",
+          "DINGTALK_SECRET": "${DINGTALK_SECRET}"
+        }
+      }
+    }
+}

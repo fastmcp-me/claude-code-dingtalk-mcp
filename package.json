@@ -1,0 +1,54 @@
+{
+  "name": "claude-code-dingtalk-mcp",
+  "version": "1.0.0",
+  "description": "DingTalk notification MCP server for Claude Code integration",
+  "main": "dist/index.js",
+  "bin": {
+    "dingtalk-mcp-server": "dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "test": "tsx src/test.ts",
+    "test-real": "tsx src/real-test.ts",
+    "notify-session-end": "tsx src/quick-notify.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "dingtalk",
+    "notification",
+    "claude-code",
+    "webhook",
+    "bot",
+    "automation"
+  ],
+  "author": "Claude Code Community",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/claude-code-community/dingtalk-mcp-server.git"
+  },
+  "homepage": "https://github.com/claude-code-community/dingtalk-mcp-server#readme",
+  "bugs": {
+    "url": "https://github.com/claude-code-community/dingtalk-mcp-server/issues"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
