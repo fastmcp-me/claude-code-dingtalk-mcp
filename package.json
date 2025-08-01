@@ -1,6 +1,6 @@
 {
   "name": "claude-code-dingtalk-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "DingTalk notification MCP server for Claude Code integration",
   "main": "dist/index.js",
   "bin": {
