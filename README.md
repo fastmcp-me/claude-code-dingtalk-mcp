@@ -22,6 +22,8 @@
 ```bash
 npm install -g claude-code-dingtalk-mcp
 ```
+# 使用 Claude MCP 管理器安装（推荐）
+claude mcp add dingtalk-mcp dingtalk-mcp-server
 
 ### 第2步：获取钉钉机器人信息
 1. 钉钉群 → 群设置 → 智能群助手 → 添加机器人 → 自定义
