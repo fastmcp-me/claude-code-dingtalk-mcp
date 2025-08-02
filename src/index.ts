@@ -7,6 +7,7 @@ import {
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import { DingTalkClient, DingTalkConfig } from './dingtalk.js';
+import { execSync } from 'child_process';
 
 class DingTalkMCPServer {
   private server: Server;
@@ -27,6 +28,15 @@ class DingTalkMCPServer {
 
     this.setupHandlers();
     this.initializeFromEnv();
+  }
+
+  private getGitUsername(): string {
+    try {
+      const username = execSync('git config --get user.name', { encoding: 'utf8' }).trim();
+      return username || 'Unknown User';
+    } catch (error) {
+      return 'Unknown User';
+    }
   }
 
   private initializeFromEnv() {
@@ -258,7 +268,10 @@ class DingTalkMCPServer {
       throw new Error('DingTalk client not configured. Use dingtalk_configure first or set environment variables (DINGTALK_WEBHOOK, DINGTALK_SECRET).');
     }
 
-    const success = await this.dingTalkClient.sendText(args.content, args.atAll);
+    const gitUsername = this.getGitUsername();
+    const contentWithUser = `${args.content}\n\n---\n👤 发送者: ${gitUsername}`;
+
+    const success = await this.dingTalkClient.sendText(contentWithUser, args.atAll);
     return {
       content: [
         {
@@ -276,7 +289,10 @@ class DingTalkMCPServer {
       throw new Error('DingTalk client not configured. Use dingtalk_configure first or set environment variables (DINGTALK_WEBHOOK, DINGTALK_SECRET).');
     }
 
-    const success = await this.dingTalkClient.sendMarkdown(args.title, args.text, args.atAll);
+    const gitUsername = this.getGitUsername();
+    const textWithUser = `${args.text}\n\n---\n👤 **发送者:** ${gitUsername}`;
+
+    const success = await this.dingTalkClient.sendMarkdown(args.title, textWithUser, args.atAll);
     return {
       content: [
         {
@@ -328,12 +344,14 @@ class DingTalkMCPServer {
     const toolsUsed = args.toolsUsed || 0;
 
     const now = new Date();
+    const gitUsername = this.getGitUsername();
     const title = `🤖 Claude Code ${sessionType}完成`;
     
     let content = `## 🤖 Claude Code ${sessionType}完成
 
 **完成时间：** ${now.toLocaleString('zh-CN')}
 **会话时长：** ${duration}
+**操作者：** ${gitUsername}
 
 ### 📋 本次会话
 ${summary}`;
@@ -392,12 +410,14 @@ ${mainTasks.map(task => `- ${task.trim()}`).join('\n')}`;
     };
 
     const timestamp = new Date().toLocaleString('zh-CN');
+    const gitUsername = this.getGitUsername();
     
     let markdownText = `## ${statusEmoji[args.status]} ${statusText[args.status]}
 
 **任务名称：** ${args.taskName}
 **状态：** ${statusText[args.status]}
-**时间：** ${timestamp}`;
+**时间：** ${timestamp}
+**操作者：** ${gitUsername}`;
 
     if (args.duration) {
       markdownText += `\n**耗时：** ${args.duration}`;
