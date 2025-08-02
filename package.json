@@ -1,6 +1,6 @@
 {
   "name": "claude-code-dingtalk-mcp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "DingTalk notification MCP server for Claude Code integration",
   "main": "dist/index.js",
   "bin": {
@@ -29,11 +29,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/claude-code-community/dingtalk-mcp-server.git"
+    "url": "https://github.com/sfyyy/claude-code-dingtalk-mcp"
   },
-  "homepage": "https://github.com/claude-code-community/dingtalk-mcp-server#readme",
+  "homepage": "https://github.com/sfyyy/claude-code-dingtalk-mcp",
   "bugs": {
-    "url": "https://github.com/claude-code-community/dingtalk-mcp-server/issues"
+    "url": "https://github.com/sfyyy/claude-code-dingtalk-mcp/issues"
   },
   "files": [
     "dist/**/*",
